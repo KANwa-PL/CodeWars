@@ -221,15 +221,218 @@ export function solution(number) {
     // Finish the solution so that it returns the sum of all the multiples of 3 or 5 below the number passed in.
     // Additionally, if the number is negative, return 0 (for languages that do have them).
     let result = 0;
-    let multiples = [];
+
     for (let i = 1; i <= number; i++) {
-        if (i % 3 === 0) {
-            multiples.push(i);
-            result += i;
-        } else if (i % 5 === 0) {
-            multiples.push(i);
+        if (i % 3 === 0 || i % 5 === 0) {
             result += i;
         }
     }
-return result;
+
+    return result;
+}
+
+export function cakes(recipe, available) {
+    // Function cakes() takes the recipe (object) and the available ingredients (object)
+    // The function returns the maximum number of cakes you can bake (integer)
+    let maximumCakes = Infinity;
+    for (const recipeKey in recipe) {
+        if (available[recipeKey]) {
+            let currentCakes = Math.floor(available[recipeKey] / recipe[recipeKey]);
+            if (currentCakes < maximumCakes) {
+                maximumCakes = currentCakes;
+            }
+        } else {
+            return 0;
+        }
+    }
+    return maximumCakes;
+}
+
+export function firstNonRepeatingLetter(string) {
+
+    // This solution does not handle upper case characters.
+
+    for (let i = 0; i < string.length; i++) {
+        let character = string[i];
+        if (string.indexOf(character) == i && string.indexOf(character, i + 1) == -1) {
+            return character;
+        }
+    }
+    return "";
+}
+
+export function firstNonRepeatingLetterRemodel(string) {
+
+    let lowerString = string.toLowerCase();
+
+    for (let i = 0; i < lowerString.length; i++) {
+        if (lowerString.indexOf(lowerString.charAt(i)) == lowerString.lastIndexOf(lowerString.charAt(i))) {
+            return string.charAt(i);
+        }
+    }
+    return "";
+}
+
+export function oddCount(n) {
+
+    // Given a number n, return the number of positive odd numbers below n.
+
+    return Math.floor(n / 2);
+}
+
+export function dirReducIncomplete(arr) {
+
+    // Incomplete solution.
+
+    let key = 0;
+    while (true) {
+        switch (arr[key]) {
+            case "NORTH":
+                if (arr[key + 1] === "SOUTH" || arr[key + 1] === "NORTH") {
+                    arr.splice(key, key + 1)
+                } else {
+                    key++;
+                }
+                break;
+            case "SOUTH":
+                if (arr[key + 1] === "NORTH" || arr[key + 1] === "SOUTH") {
+                    arr.splice(key, key + 1)
+                } else {
+                    key++;
+                }
+                break;
+            case "EAST":
+                if (arr[key + 1] === "WEST" || arr[key + 1] === "EAST") {
+                    arr.splice(key, key + 1)
+                } else {
+                    key++;
+                }
+                break;
+            case "WEST":
+                if (arr[key + 1] === "EAST" || arr[key + 1] === "WEST") {
+                    arr.splice(key, key + 1)
+                } else {
+                    key++;
+                }
+                break;
+            default:
+                return arr;
+        }
+    }
+}
+
+export function dirReduc(arr) {
+    let string = arr.join("");
+    let pattern = /NORTHSOUTH|EASTWEST|SOUTHNORTH|WESTEAST/g;
+
+    while (pattern.test(string)) {
+        string = string.replace(pattern, '')
+    }
+
+    return string.match(/NORTH|SOUTH|WEST|EAST/g) || [];
+}
+
+export function XO(str) {
+    let xCount = 0;
+    let oCount = 0;
+    for (let character of str) {
+        if (character.toLowerCase() === 'x') {
+            xCount++;
+        } else if (character.toLowerCase() === 'o') {
+            oCount++;
+        }
+    }
+    return xCount === oCount ? true : false;
+}
+
+export function reverse(array) {
+    let result = [];
+    for (let i = array.length - 1; i >= 0; i--) {
+        result.push(array[i]);
+    }
+    return result;
+}
+
+export function upArray(arr) {
+
+    for (let number of arr) {
+        if (number < 0 || number > 9 || (typeof number !== 'number')) {
+            return null;
+        }
+    }
+
+    if (!arr || arr.length === 0) {
+        return null;
+    }
+
+    // Loop over the array.
+    // Check if a value !== 9.
+    // Yes: value++ then break out of loop.
+    // No: value = 0
+
+    for (let i = arr.length - 1; i > -1; i--) {
+        if (arr[i] !== 9) {
+            arr[i] = arr[i] + 1;
+            break;
+        } else {
+            arr[i] = 0;
+        }
+        if (i === 0) {
+            arr.unshift(1);
+        }
+    }
+
+    return arr;
+}
+
+export function incrementer(nums) {
+    for (let i = 0; i < nums.length; i++) {
+        nums[i] = nums[i] + i + 1;
+        if (nums[i] > 9) {
+            nums[i] = nums[i] % 10;
+        }
+    }
+    return nums;
+}
+
+export function incrementerRemodel(numbers) {
+    const incrementedNumbers = numbers.map((element, index) => {
+        return element + index + 1 > 9 ? (element + index + 1) % 10 : element + index + 1;
+    })
+    return incrementedNumbers;
+}
+
+export function domainName(url) {
+    let array = url.split('.');
+    if (array[0] === 'www' || array[0] === 'https://www' || array[0] === 'http://www') {
+        return array[1];
+    } else {
+        let newArray = array[0].split('//');
+        return newArray[1];
+    }
+}
+
+export function countPositivesSumNegatives(input) {
+    let result = [0, 0];
+    if (!input || input.length ===0) {
+        return [];
+    }
+    for (let number of input){
+        if (number > 0) {
+            result[0]++;
+        } else {
+            result[1] = result[1] + number;
+        }
+    }
+    return result;
+  }
+  
+export function toNumberArray(stringarray){
+    // Create the function that takes as a parameter a sequence of numbers represented as strings and outputs a sequence of numbers.
+
+    const array = stringarray.map((x) => {
+        return parseFloat(x);
+    })
+
+    return array;
 }

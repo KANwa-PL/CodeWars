@@ -1,12 +1,13 @@
 import './App.css';
-import { solution } from './functions/functions'
+import { toNumberArray } from './functions/functions'
 
 function App() {
 
   return (
     <div className="App">
       <div>
-        {solution(30)}
+        <p>{toNumberArray(["1.1","2.2","3.3"])}</p>
+        <p>{toNumberArray(["1","2","3"])}</p>
       </div>
     </div>
   );
