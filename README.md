@@ -1,6 +1,4 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Use the functions by replacing the function name and arguments in APP.
 
 ## Available Scripts
 
